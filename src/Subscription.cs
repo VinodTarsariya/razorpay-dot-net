@@ -9,12 +9,12 @@ namespace Razorpay.Api
             this["id"] = subscriptionId;
         }
 
-        new public Subscription Fetch(string id)
+        public new Subscription Fetch(string id)
         {
             return (Subscription)base.Fetch(id);
         }
 
-        new public List<Subscription> All(Dictionary<string, object> options = null)
+        public new List<Subscription> All(Dictionary<string, object> options = null)
         {
             List<Entity> entities = base.All(options);
             List<Subscription> subscriptions = new List<Subscription>();
@@ -29,6 +29,13 @@ namespace Razorpay.Api
         {
             string relativeUrl = GetEntityUrl();
             List<Entity> entities = Request(relativeUrl, HttpMethod.POST, data);
+            return (Subscription)entities[0];
+        }
+
+        public Subscription Update(Dictionary<string, object> data)
+        {
+            string relativeUrl = GetEntityUrl() + "/" + this["id"];
+            List<Entity> entities = Request(relativeUrl, HttpMethod.PATCH, data);
             return (Subscription)entities[0];
         }
 
